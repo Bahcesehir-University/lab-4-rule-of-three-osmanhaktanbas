@@ -22,21 +22,21 @@ using namespace std;
 // These counters help tests verify that your special member functions are
 // actually being called. Increment them at the START of each function body.
 
-int g_constructorCount    = 0;
-int g_destructorCount     = 0;
+int g_constructorCount = 0;
+int g_destructorCount = 0;
 int g_copyConstructorCount = 0;
-int g_assignmentCount     = 0;
+int g_assignmentCount = 0;
 
 // Helper functions to read/reset counters (DO NOT MODIFY)
-int getConstructorCount()     { return g_constructorCount; }
-int getDestructorCount()      { return g_destructorCount; }
+int getConstructorCount() { return g_constructorCount; }
+int getDestructorCount() { return g_destructorCount; }
 int getCopyConstructorCount() { return g_copyConstructorCount; }
-int getAssignmentCount()      { return g_assignmentCount; }
+int getAssignmentCount() { return g_assignmentCount; }
 void resetAllCounters() {
-    g_constructorCount     = 0;
-    g_destructorCount      = 0;
+    g_constructorCount = 0;
+    g_destructorCount = 0;
     g_copyConstructorCount = 0;
-    g_assignmentCount      = 0;
+    g_assignmentCount = 0;
 }
 
 // ============================================================================
@@ -63,9 +63,14 @@ public:
     DynamicBuffer(const char* input) {
         // TODO: Implement constructor
         //   1. Increment g_constructorCount
+        g_constructorCount++;
         //   2. Calculate length of input using strlen()
+        m_length = strlen(input);
         //   3. Allocate m_data with new char[m_length + 1]
-        //   4. Copy input into m_data using strcpy()
+        m_data = new char[m_length + 1];
+        //   4. Copy input into m_data using strcpy
+        strcpy(m_data, input);
+
     }
 
     // --------------------------------------------------
@@ -76,7 +81,9 @@ public:
     ~DynamicBuffer() {
         // TODO: Implement destructor
         //   1. Increment g_destructorCount
+        g_destructorCount++;
         //   2. Delete the dynamically allocated array (delete[])
+        delete[] m_data;
     }
 
     // --------------------------------------------------
@@ -88,9 +95,13 @@ public:
     DynamicBuffer(const DynamicBuffer& other) {
         // TODO: Implement copy constructor
         //   1. Increment g_copyConstructorCount
+        g_copyConstructorCount++;
         //   2. Copy m_length from other
+        m_length = other.m_length;
         //   3. Allocate new memory: new char[m_length + 1]
+        m_data = new char[m_length + 1];
         //   4. Copy string data using strcpy()
+        strcpy(m_data , other.m_data);
     }
 
     // --------------------------------------------------
@@ -104,11 +115,19 @@ public:
     DynamicBuffer& operator=(const DynamicBuffer& other) {
         // TODO: Implement copy assignment operator
         //   1. Increment g_assignmentCount
+        g_assignmentCount++;
         //   2. Check for self-assignment (if this == &other)
+        if( this == &other){
+            return *this;
+        }
         //   3. Delete old m_data (delete[])
+        delete[] m_data;
         //   4. Copy m_length from other
+        m_length = other.m_length;
         //   5. Allocate new memory: new char[m_length + 1]
+        new char[m_length + 1];
         //   6. Copy string data using strcpy()
+        strcpy(m_data , other.m_data);
         //   7. Return *this
         return *this;
     }
@@ -128,9 +147,13 @@ public:
     void setData(const char* newData) {
         // TODO: Implement setData
         //   1. Delete old m_data (delete[])
+        delete[] m_data;
         //   2. Calculate new length with strlen()
+        strlen(newData);
         //   3. Allocate new memory: new char[m_length + 1]
+        new char[m_length + 1];
         //   4. Copy newData into m_data using strcpy()
+        strcpy(m_data , newData);
     }
 
     // --------------------------------------------------
