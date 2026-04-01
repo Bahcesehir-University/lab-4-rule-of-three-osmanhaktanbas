@@ -146,12 +146,12 @@ public:
     // - Copy the new string
     void setData(const char* newData) {
         // TODO: Implement setData
-        //   1. Delete old m_data (delete[])
+        //*   1. Delete old m_data (delete[])
         delete[] m_data;
         //   2. Calculate new length with strlen()
-        strlen(newData);
+        m_length = strlen(newData);
         //   3. Allocate new memory: new char[m_length + 1]
-        new char[m_length + 1];
+        m_data = new char[m_length + 1];
         //   4. Copy newData into m_data using strcpy()
         strcpy(m_data , newData);
     }
