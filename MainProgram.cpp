@@ -125,7 +125,7 @@ public:
         //   4. Copy m_length from other
         m_length = other.m_length;
         //   5. Allocate new memory: new char[m_length + 1]
-        new char[m_length + 1];
+        m_data = new char[m_length + 1];
         //   6. Copy string data using strcpy()
         strcpy(m_data , other.m_data);
         //   7. Return *this
